@@ -11,7 +11,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="container" style="width:50%">
 <div class="site-register" style="color:grey;text-align:center;">
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1><?= Html::encode($this->title) ?></h1><br>
 
     <?php $form = ActiveForm::begin([
         'id' => 'login-form',

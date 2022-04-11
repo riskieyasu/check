@@ -82,6 +82,21 @@ span{
     
     
 }
+#newuser-username{
+width:350px;
+
+}
+#newuser-email{
+width:350px;
+}
+#newuser-password{
+width:350px;
+}
+.mr-md-1{
+    margin-left:50px;
+    width:100px;
+    padding-top:7px;
+}
 
 </style>
 <body class="nav-<?= !empty($_COOKIE['menuIsCollapsed']) && $_COOKIE['menuIsCollapsed'] == 'true' ? 'sm' : 'md' ?>" >
