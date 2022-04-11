@@ -60,6 +60,7 @@ span{
   margin: 10px;
   padding: 20px;
   width:700px;
+  height:150px;
   font-size: 20px;
   text-align:center;
   margin-left:29px;
