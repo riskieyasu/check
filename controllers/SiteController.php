@@ -100,6 +100,10 @@ class SiteController extends Controller
             'model' => $model,
         ]);
     }
+    public function actionCatat()
+    {
+        return $this->render('catat');
+    }
 
     /**
      * Displays about page.

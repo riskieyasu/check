@@ -49,7 +49,7 @@ span{
   display: flex;
   flex-wrap: wrap;
   background-color: transparent;
-  margin-top:50px;
+  margin-top:90px;
   height:180px;
  
   
@@ -70,7 +70,7 @@ span{
 
 
 .flex-container > div:hover{
-		transform: scale(1.3);
+		transform: scale(1.1);
 		background: #ff800a;
 		z-index: 2;
 		box-shadow: 2px 2px 2px #000;
@@ -82,6 +82,7 @@ span{
     
     
 }
+
 #newuser-username{
 width:350px;
 
@@ -97,7 +98,13 @@ width:350px;
     width:100px;
     padding-top:7px;
 }
+.vaksinasi-form{
+    margin:auto;
+    width:480px;
+    margin-top:20px;
+   
 
+}
 </style>
 <body class="nav-<?= !empty($_COOKIE['menuIsCollapsed']) && $_COOKIE['menuIsCollapsed'] == 'true' ? 'sm' : 'md' ?>" >
 <?php $this->beginBody(); ?>

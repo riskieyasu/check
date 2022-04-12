@@ -1,0 +1,81 @@
+<style>
+     .control-label{
+        color:black;
+        font-size:12px;
+        margin-left:-60px;
+        /* margin-bottom:10px; */
+       
+    }
+    #vaksinasi-namavaksin{
+        margin-top:-30px;
+        margin-left:45px;
+        margin-bottom:20px;
+        border-color:black;
+        
+        
+    }
+    #vaksinasi-tanggalvaksin{
+        margin-top:-30px;
+        margin-left:45px;
+        margin-bottom:20px;
+        border-color:black;
+    }
+    #vaksinasi-pemberivaksin{
+        margin-top:-30px;
+        margin-left:45px;
+        margin-bottom:20px;
+        border-color:black;
+    }
+    #vaksinasi-keterangan{
+        margin-top:-30px;
+        margin-left:45px;
+        margin-bottom:20px;
+        border-color:black;
+    }
+    #vaksinasi-datasapi_id{
+        margin-top:-30px;
+        margin-left:45px;
+        margin-bottom:20px;
+        border-color:black;
+    }
+    .btn-success{
+        margin-left:460px;
+        margin-top:-15px;
+    }
+    </style>
+
+
+
+
+<?php
+
+use yii\helpers\Html;
+
+/* @var $this yii\web\View */
+/* @var $model app\models\Vaksinasi */
+
+$this->title = 'Riwayat Vaksinasi';
+$this->params['breadcrumbs'][] = ['label' => 'Vaksinasis', 'url' => ['index']];
+$this->params['breadcrumbs'][] = $this->title;
+?>
+<h1 style="margin-left:20px;"><?= Html::encode($this->title) ?></h1>
+<p style="margin-left:20px;">Pencatatan kesehatan tentang riwayat vaksinasi yang pernah diberikan kepada sapi.</p><br>
+<div class="vaksinasi-create"  style="background-color:white; width:60%; margin-left:220px; border-style: solid; border-color:black;">
+
+    <br><?= $this->render('_form', [
+        'model' => $model,
+    ]) ?>
+
+</div>
+<script>
+     $("#vaksinasi-namavaksin")
+    .replaceWith('<select  id="vaksinasi-namavaksin" class="form-control" name="Vaksinasi[namavaksin]" aria-required="true" aria-invalid="true">'+
+    '<option value="Astra Zeneca">Astra Zeneca</option>'+
+    '<option value="Pfizer">Pfizer</option>'+
+    '<option value="Sinovac">Sinovac</option>'+
+    '<option value="Moderna">Moderna</option>'+
+  '</select>');
+    let id = localStorage.getItem("id");
+    document.getElementById("vaksinasi-tanggalvaksin").placeholder = "yyyy/mm/dd"; 
+    document.getElementById("vaksinasi-datasapi_id").value= id; 
+</script>

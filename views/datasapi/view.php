@@ -30,14 +30,14 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Datasapi */
 
-$this->title = 'Data Kesehatan Sapi';
+$this->title = $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Datasapis', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="datasapi-view">
-
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1>Data Kesehatan Sapi</h1>
+    <h1 id="id" style="display:none"><?= Html::encode($this->title) ?></h1>
     
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
@@ -57,9 +57,6 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::label($model->date , 'username', ['class' => 'label username']) ?><br><img id ="img" src="/../coww.jpg" alt="Girl in a jacket" width="200" height="200"> <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            
-
-          
             'id',
             'namasapi',
             'rassapi',
@@ -69,9 +66,17 @@ $this->params['breadcrumbs'][] = $this->title;
             'lingkarbadan',
             
         ]
-    ]) ?><div style="width:50%; margin:auto; margin-left:120px; padding-bottom:10px;">
-    
+    ]) ?>
+    <div style="width:50%; margin:auto; margin-left:420px; padding-bottom:10px;">
+    <?= Html::a('Catat data kesehatan sapi anda', 'index.php?r=site%2Fcatat' ,array('onclick'=>'js:setTop()','class' => 'btn btn-success')) ?>
 </div>
 </div>
 
 </div>
+<script>
+    function setTop(){
+        let id = document.getElementById('id').textContent;
+        localStorage.setItem("id", id);
+       
+    }
+    </script>
