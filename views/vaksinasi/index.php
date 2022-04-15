@@ -32,9 +32,18 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'datasapi_id',
-            'namavaksin',
-            'tanggalvaksin',
+             [
+            'header' => 'Id Sapi',
+            'attribute' => 'datasapi_id',
+        ],
+        [
+            'header' => 'Nama Vaksin',
+            'attribute' => 'namavaksin',
+        ],
+        [
+            'header' => 'Tanggal Vaksin',
+            'attribute' => 'tanggalvaksin',
+        ],
             // 'pemberivaksin',
             // 'keterangan',
             
@@ -52,5 +61,5 @@ $this->params['breadcrumbs'][] = $this->title;
 
 </div>
 <script>
-    $("td")
+
     </script>

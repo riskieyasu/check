@@ -7,6 +7,7 @@ use app\models\VaksinasiSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\data\SqlDataProvider;
 
 /**
  * VaksinasiController implements the CRUD actions for Vaksinasi model.
@@ -36,14 +37,20 @@ class VaksinasiController extends Controller
      *
      * @return string
      */
-    public function actionIndex()
+    public function actionIndex($id)
     {
+        
+        $provider = new SqlDataProvider([
+            'sql' => 'SELECT * FROM vaksinasi WHERE datasapi_id=:datasapi_id',
+            'params' => [':datasapi_id' => $id],
+        ]);
+    
         $searchModel = new VaksinasiSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
+        // $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+            'dataProvider' => $provider,
         ]);
     }
 
@@ -132,3 +139,7 @@ class VaksinasiController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 }
+?>
+<script>
+    var data = localStorage.getItem("id");
+    </script>

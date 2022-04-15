@@ -77,6 +77,6 @@ $this->params['breadcrumbs'][] = $this->title;
     function setTop(){
         let id = document.getElementById('id').textContent;
         localStorage.setItem("id", id);
-       
+        
     }
     </script>

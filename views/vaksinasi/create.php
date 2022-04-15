@@ -39,9 +39,14 @@
         border-color:black;
     }
     .btn-success{
-        margin-left:460px;
+        margin-left:360px;
         margin-top:-15px;
     }
+    .btn-primary{
+        margin-left:510px;
+        margin-top:-51px;
+    }
+    
     </style>
 
 
@@ -64,8 +69,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <br><?= $this->render('_form', [
         'model' => $model,
-    ]) ?>
-
+    ])
+    
+     ?>
+<?= Html::a('View Table', '#' ,array('onclick'=>'js:setTop()','class' => 'btn btn-primary')) ?>
 </div>
 <script>
      $("#vaksinasi-namavaksin")
@@ -78,4 +85,10 @@ $this->params['breadcrumbs'][] = $this->title;
     let id = localStorage.getItem("id");
     document.getElementById("vaksinasi-tanggalvaksin").placeholder = "yyyy/mm/dd"; 
     document.getElementById("vaksinasi-datasapi_id").value= id; 
+
+
+    function setTop(){
+       let id_ = localStorage.getItem("id");
+        window.location.href= "index.php?r=vaksinasi%2Findex&id="+id_+""
+    }
 </script>
