@@ -2,17 +2,16 @@
 
 namespace app\controllers;
 
-use app\models\Vaksinasi;
-use app\models\VaksinasiSearch;
+use app\models\Riwayatpenyakit;
+use app\models\RiwayatpenyakitSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\data\SqlDataProvider;
 
 /**
- * VaksinasiController implements the CRUD actions for Vaksinasi model.
+ * RiwayatpenyakitController implements the CRUD actions for Riwayatpenyakit model.
  */
-class VaksinasiController extends Controller
+class RiwayatpenyakitController extends Controller
 {
     /**
      * @inheritDoc
@@ -33,29 +32,23 @@ class VaksinasiController extends Controller
     }
 
     /**
-     * Lists all Vaksinasi models.
+     * Lists all Riwayatpenyakit models.
      *
      * @return string
      */
-    public function actionIndex($id)
+    public function actionIndex()
     {
-        
-        $provider = new SqlDataProvider([
-            'sql' => 'SELECT * FROM vaksinasi WHERE datasapi_id=:datasapi_id',
-            'params' => [':datasapi_id' => $id],
-        ]);
-    
-        $searchModel = new VaksinasiSearch();
-        // $dataProvider = $searchModel->search($this->request->queryParams);
+        $searchModel = new RiwayatpenyakitSearch();
+        $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
-            'dataProvider' => $provider,
+            'dataProvider' => $dataProvider,
         ]);
     }
 
     /**
-     * Displays a single Vaksinasi model.
+     * Displays a single Riwayatpenyakit model.
      * @param int $id ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
@@ -68,22 +61,17 @@ class VaksinasiController extends Controller
     }
 
     /**
-     * Creates a new Vaksinasi model.
+     * Creates a new Riwayatpenyakit model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new Vaksinasi();
-        // $provider = new SqlDataProvider([
-        //     'sql' => 'SELECT * FROM vaksinasi WHERE datasapi_id=:datasapi_id',
-        //     'params' => [':datasapi_id' => $id],
-        // ]);
-    
-        // $searchModel = new VaksinasiSearch();
+        $model = new Riwayatpenyakit();
+
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                $this->getView()->registerJs("setTop()");
+                return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
             $model->loadDefaultValues();
@@ -95,7 +83,7 @@ class VaksinasiController extends Controller
     }
 
     /**
-     * Updates an existing Vaksinasi model.
+     * Updates an existing Riwayatpenyakit model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $id ID
      * @return string|\yii\web\Response
@@ -115,7 +103,7 @@ class VaksinasiController extends Controller
     }
 
     /**
-     * Deletes an existing Vaksinasi model.
+     * Deletes an existing Riwayatpenyakit model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $id ID
      * @return \yii\web\Response
@@ -129,22 +117,18 @@ class VaksinasiController extends Controller
     }
 
     /**
-     * Finds the Vaksinasi model based on its primary key value.
+     * Finds the Riwayatpenyakit model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $id ID
-     * @return Vaksinasi the loaded model
+     * @return Riwayatpenyakit the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Vaksinasi::findOne(['id' => $id])) !== null) {
+        if (($model = Riwayatpenyakit::findOne(['id' => $id])) !== null) {
             return $model;
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 }
-?>
-<script>
-    var data = localStorage.getItem("id");
-    </script>
