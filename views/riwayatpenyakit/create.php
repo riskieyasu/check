@@ -57,11 +57,9 @@
     }
     .btn-primary{
         margin-left:430px;
-        margin-top:-63px;
+        margin-top:-51px;
     }
     </style>
-
-
 
 
 <?php
@@ -71,12 +69,12 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Riwayatpenyakit */
 
-$this->title = 'Riwayat Penyakit';
+$this->title = 'Entry Riwayat Penyakit';
 $this->params['breadcrumbs'][] = ['label' => 'Riwayatpenyakits', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<h1 style="margin-left:20px;"><?= Html::encode($this->title) ?></h1>
-<p style="margin-left:24px;">Pencatatan kesehatan tentang riwayat vaksinasi yang pernah diberikan kepada sapi.</p><br>
+<h1 style="text-align:center"><?= Html::encode($this->title) ?></h1>
+<p style="text-align:center">Pencatatan kesehatan tentang riwayat vaksinasi yang pernah diberikan kepada sapi.</p><br>
 <div class="riwayatpenyakit-create"  style="background-color:white; width:60%; margin-left:220px; border-style: solid; border-color:black;">
 
     <br>
@@ -107,8 +105,13 @@ $this->params['breadcrumbs'][] = $this->title;
     '<option value="Non Peternak">Non Peternak</option>'+
   '</select>');
     function setTop(){
-    //    let id_ = localStorage.getItem("id");
+       let id_ = localStorage.getItem("id");
     //     window.location.href= "index.php?r=vaksinasi%2Findex&id="+id_+""
-    window.location.href= "index.php?r=riwayatpenyakit%2Findex"
+    window.location.href= "index.php?r=riwayatpenyakit%2Findex&id="+id_+""
     }
+    
+    let id = localStorage.getItem("id");
+    document.getElementById("riwayatpenyakit-sapi_id").value= id; 
+
+
     </script>

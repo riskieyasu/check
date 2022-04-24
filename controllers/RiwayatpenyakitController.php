@@ -7,7 +7,7 @@ use app\models\RiwayatpenyakitSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use yii\data\SqlDataProvider;
 /**
  * RiwayatpenyakitController implements the CRUD actions for Riwayatpenyakit model.
  */
@@ -36,16 +36,47 @@ class RiwayatpenyakitController extends Controller
      *
      * @return string
      */
-    public function actionIndex()
+    public function actionIndex($id)
     {
+        // $provider = new SqlDataProvider([
+        //     'sql' => 'SELECT * FROM riwayatpenyakit WHERE sapi_id=:sapi_id',
+        //     'params' => [':sapi_id' => $id],
+        // ]);
+        $rows = (new \yii\db\Query())
+        ->select(['namapenyakit','tanggalsakit','tanggalsembuh','pendiagnosa','keterangan','id'])
+        ->from('riwayatpenyakit')
+        ->where(['sapi_id' => $id])
+        ->limit(10)
+        ->all();
+        
         $searchModel = new RiwayatpenyakitSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
+        // $dataProvider = $searchModel->search($this->request->queryParams);
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+        $data=$rows;
+        return $this->printTable_($data);
     }
+
+    private function printTable_($data)
+    {   $num = 0;
+        $content = "<h1  style='text-align:center; margin-top:20px; color:black;'>Data kesehatan sapi anda</h1><div class='flex-container' style='height:70%; overflow-y: scroll;'><br><table class='table' style='margin-bottom:312px;'><tr>
+        <th>Nama Penyakit</th>
+        <th>Tanggal Sakit</th>
+        <th>Tanggal Sembuh</th>
+        <th>Pendiagnosa</th>
+        <th>Keterangan</th>
+        <th>Update(ID)</th>
+      </tr>";
+        foreach ($data as $datum) {
+            $content .= "<tr>";
+            foreach ($datum as $key => $value) {
+                $content .= "<td><a href='#' onclick='tes_($value)'>$value</a></td>";
+            }
+            $content .= "</tr>";
+        }
+        $content .= '</table>';
+        return $this->renderContent($content);
+    }
+
 
     /**
      * Displays a single Riwayatpenyakit model.
@@ -132,3 +163,13 @@ class RiwayatpenyakitController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 }
+?>
+
+ <script>
+     function tes_(a){
+         if (a>0 && a<100){
+        //  alert(a);
+            location.href='index.php?r=riwayatpenyakit%2Fview&id='+a+''
+    }
+     }
+     </script>

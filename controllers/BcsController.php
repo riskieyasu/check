@@ -1,17 +1,17 @@
 <?php
 
 namespace app\controllers;
-use Yii;
-use app\models\Datasapi;
-use app\models\DatasapiSearch;
+
+use app\models\Bcs;
+use app\models\BcsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\helpers\Html;
+
 /**
- * DatasapiController implements the CRUD actions for Datasapi model.
+ * BcsController implements the CRUD actions for Bcs model.
  */
-class DatasapiController extends Controller
+class BcsController extends Controller
 {
     /**
      * @inheritDoc
@@ -32,64 +32,52 @@ class DatasapiController extends Controller
     }
 
     /**
-     * Lists all Datasapi models.
+     * Lists all Bcs models.
      *
      * @return string
      */
-    public function actionIndex()
+    public function actionIndex($id)
     {
-        // $searchModel = new DatasapiSearch();
-        // $dataProvider = $searchModel->search($this->request->queryParams);
-
-        // return $this->render('index', [
-        //     'searchModel' => $searchModel,
-        //     'dataProvider' => $dataProvider,
-        // ]);
         $rows = (new \yii\db\Query())
-        ->select(['id', 'namasapi'])
-        ->from('datasapi')
-        // ->where(['id' => 1])
+        ->select(['tulangbelakang','tulangiga','lemakdada','lemakekor','penyusutanotot','fisiksapi','id'])
+        ->from('bcs')
+        ->where(['sapi_id' => $id])
         ->limit(10)
         ->all();
         
-        if(Yii::$app->user->isGuest){
-        $searchModel = new DatasapiSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
+        // $searchModel = new RiwayatpenyakitSearch();
+        // $dataProvider = $searchModel->search($this->request->queryParams);
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-           }
-           else{
-            $data=$rows;
-            return $this->printTable($data);
+      
+        $searchModel = new BcsSearch();
+        // $dataProvider = $searchModel->search($this->request->queryParams);
+
+        $data=$rows;
+        return $this->printTable_($data);
     }
-    }
-
-
-private function printTable($data)
-{   $num = 0;
-    $content = "<h1  style='text-align:center; margin-top:20px; color:black;'>Data kesehatan sapi anda</h1><div class='flex-container' style='height:70%; overflow-y: scroll;'>";
-    foreach ($data as $datum) {
-        $num += 1;
-        $content .= "<div><span><i class='fas fa-cow'  style='color:white;  font-size:82px;'></i></span><br><a href='#' id = '$num' onclick=viewdata(this.id);>";
-        foreach ($datum as $key => $value) {
-                
-                // echo $detail['value1'] . " " . $detail['value2'];
-                $content .= " {$value}";
-              
-            
+    private function printTable_($data)
+    {   $num = 0;
+        $content = "<h1  style='text-align:center; margin-top:20px; color:black;'>Data kesehatan sapi anda</h1><div class='flex-container' style='height:70%; overflow-y: scroll;'><br><table class='table' style='margin-bottom:312px;'><tr>
+        <th>Tulang Belakang</th>
+        <th>Tulang Iga</th>
+        <th>Lemak Dada</th>
+        <th>Lemak Ekor</th>
+        <th>Penyusutan Otot</th>
+        <th>Fisik Sapi</th>
+        <th>View (ID)</th>
+      </tr>";
+        foreach ($data as $datum) {
+            $content .= "<tr>";
+            foreach ($datum as $key => $value) {
+                $content .= "<td><a href='#' onclick='tes_($value)'>$value</a></td>";
+            }
+            $content .= "</tr>";
         }
-        $content .= "</a></div>";
+        $content .= '</table>';
+        return $this->renderContent($content);
     }
-    $content .= '</div>';
-    return $this->renderContent($content);
-}
-
-
     /**
-     * Displays a single Datasapi model.
+     * Displays a single Bcs model.
      * @param int $id ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
@@ -102,13 +90,13 @@ private function printTable($data)
     }
 
     /**
-     * Creates a new Datasapi model.
+     * Creates a new Bcs model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new Datasapi();
+        $model = new Bcs();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
@@ -124,7 +112,7 @@ private function printTable($data)
     }
 
     /**
-     * Updates an existing Datasapi model.
+     * Updates an existing Bcs model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $id ID
      * @return string|\yii\web\Response
@@ -132,16 +120,9 @@ private function printTable($data)
      */
     public function actionUpdate($id)
     {
-
-        Yii::$app->db->createCommand()
-        ->update('datasapi', ['date' => new \yii\db\Expression('NOW()'),], ['id' => $id])
-             ->execute();
-
-
         $model = $this->findModel($id);
-       
+
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -151,7 +132,7 @@ private function printTable($data)
     }
 
     /**
-     * Deletes an existing Datasapi model.
+     * Deletes an existing Bcs model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $id ID
      * @return \yii\web\Response
@@ -165,15 +146,15 @@ private function printTable($data)
     }
 
     /**
-     * Finds the Datasapi model based on its primary key value.
+     * Finds the Bcs model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $id ID
-     * @return Datasapi the loaded model
+     * @return Bcs the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Datasapi::findOne(['id' => $id])) !== null) {
+        if (($model = Bcs::findOne(['id' => $id])) !== null) {
             return $model;
         }
 
@@ -181,14 +162,11 @@ private function printTable($data)
     }
 }
 ?>
-<script>
-    function viewdata(id){
-        
-        let text = document.getElementById(id).text;
-        let result = parseInt(text.slice(0, 3));
-        window.location.href= "index.php?r=datasapi%2Fview&id="+result+""
-       
+ <script>
+     function tes_(a){
+         if (a>0 && a<100){
+        //  alert(a);
+            location.href='index.php?r=bcs%2Fview&id='+a+''
     }
-
-   
-</script>
+     }
+     </script>

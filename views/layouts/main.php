@@ -83,6 +83,98 @@ span{
     
 }
 
+.flex-containera {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: transparent;
+  margin-top:90px;
+  height:160px;
+  width:800px;
+  margin-bottom:-100px;
+  margin-left:10px;
+
+}
+
+.flex-containera > div {
+  background-color: white;
+  border-color:black;
+  border-style: solid;
+  margin: 10px;
+  padding: 20px;
+  width:700px;
+  height:110px;
+  font-size: 12px;
+  text-align:center;
+  flex: 0 0 20%;
+  transition: 1s;
+}
+
+.gauge {
+  width: 100%;
+  max-width: 250px;
+  font-family: "Roboto", sans-serif;
+  font-size: 32px;
+  color: #004033;
+  margin:auto;
+}
+
+.gauge__body {
+  width: 100%;
+  height: 0;
+  padding-bottom: 50%;
+  background: white;
+  position: relative;
+  border-top-left-radius: 100% 200%;
+  border-top-right-radius: 100% 200%;
+  overflow: hidden;
+}
+
+.gauge__fill {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: inherit;
+  height: 100%;
+  background: #009578;
+  transform-origin: center top;
+  transform: rotate(0.25turn);
+  transition: transform 0.2s ease-out;
+}
+
+.gauge__cover {
+  width: 75%;
+  height: 150%;
+  background: #eee;
+  border-radius: 50%;
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translateX(-50%);
+
+  /* Text */
+  font-size:16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 25%;
+  box-sizing: border-box;
+}
+
+
+.flex-containera > div:hover{
+		transform: scale(1.1);
+		background: #ff800a;
+		z-index: 2;
+		box-shadow: 2px 2px 2px #000;
+		
+	}
+
+.flex-containera > div a{
+    color:black;
+    
+    
+}
+
 #newuser-username{
 width:350px;
 

@@ -48,6 +48,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
+        <?= Html::a('Data Entry', '#' ,array('onclick'=>'js:setTop_()','class' => 'btn btn-success')) ?>
        
     </p>
 
@@ -67,35 +68,40 @@ $this->params['breadcrumbs'][] = $this->title;
             
         ]
     ]) ?>
-    <div style="width:50%; margin:auto; margin-left:420px; padding-bottom:10px;">
-    
-</div>
-</div>
+  
 
+<div class="flex-containera">
+<div><span><i class='fas fa-cow'  style='color:black; margin-left:-15px; margin-top:-10px; font-size:52px;'></i></span><br><a href='#' id = '$num' style="margin-left:2px;">Kondisi Visual</a></div>
+
+<div><span><i class="fas fa-gauge" style='color:black; margin-left:-5px; margin-top:-10px; font-size:52px;'></i></span><br><a href='#' onclick="setTop(2)" id = '$num' style="margin-left:4px;">BCS</a></div>
+<div><span><i class='fas fa-briefcase-medical'  style='color:black; margin-left:-5px; margin-top:-10px; font-size:52px;'></i></span><br><a href='#' onclick="setTop(3)" id = '$num' style="margin-left:5px;">Riwayat Kesehatan</a></div>
+<div><span><i class='fas fa-syringe'  style='color:black; margin-left:5px; margin-top:-10px; font-size:52px;'></i></span><br><a href='#' onclick="setTop(4)" id = '$num' style="margin-left:10px;">Riwayat Vaksinasi</a></div>
 </div>
-<div class="vaksinasi-create"  style="background-color:white; width:20%; margin-left:80px; margin-top:60px; border-style: solid; border-color:black;">
-<div><span><i class='fas fa-cow'  style='color:black; margin-left:45px; margin-top:10px; font-size:82px;'></i></span><br><a href='#' id = '$num' style="margin-left:62px;">Kondisi Visual</a></div>
 <br>
-</div>
-<div class="vaksinasi-create"  style="background-color:white; width:20%; margin-top:-136px; margin-left:320px; border-style: solid; border-color:black;">
-<div><span><i class="fas fa-gauge" style='color:black; margin-left:55px; margin-top:10px; font-size:82px;'></i></span><br><a href='#' id = '$num' style="margin-left:94px;">BCS</a></div>
 <br>
-</div>
-<div class="vaksinasi-create"  style="background-color:white; width:20%; margin-top:-136px; margin-left:560px; border-style: solid; border-color:black;">
-<div><span><i class='fas fa-briefcase-medical'  style='color:black; margin-left:55px; margin-top:10px; font-size:82px;'></i></span><br><a href='index.php?r=riwayatpenyakit%2Fcreate' id = '$num' style="margin-left:45px;">Riwayat Kesehatan</a></div>
 <br>
-</div>
-<div class="vaksinasi-create"  style="background-color:white; width:20%; margin-top:-136px; margin-left:800px; border-style: solid; border-color:black;">
-<div><span><i class='fas fa-syringe'  style='color:black; margin-left:55px; margin-top:10px; font-size:82px;'></i></span><br><a href='index.php?r=vaksinasi%2Fcreate' onclick="setTop()" id = '$num' style="margin-left:50px;">Riwayat Vaksinasi</a></div>
 <br>
-</div>
 
 
 
 <script>
-    function setTop(){
+    function setTop(num){
         let id = document.getElementById('id').textContent;
         localStorage.setItem("id", id);
-        
+        if (num==2){
+        window.location.href= "index.php?r=bcs%2Findex&id="+id+""
+}    
+if (num==3){
+        window.location.href= "index.php?r=riwayatpenyakit%2Findex&id="+id+""
+}    
+if (num==4){
+        window.location.href= "index.php?r=vaksinasi%2Findex&id="+id+""
+}    
+}
+    function setTop_(){
+        let id = document.getElementById('id').textContent;
+        localStorage.setItem("id", id);
+
+    window.location.href= "index.php?r=site%2Fcatat"
     }
     </script>
