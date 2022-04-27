@@ -69,7 +69,7 @@ class RiwayatpenyakitController extends Controller
         foreach ($data as $datum) {
             $content .= "<tr>";
             foreach ($datum as $key => $value) {
-                $content .= "<td><a href='#' onclick='tes_($value)'>$value</a></td>";
+                $content .= "<td><a href='#' id=$value onclick='tes_($value)'>$value</a></td>";
             }
             $content .= "</tr>";
         }
@@ -164,12 +164,21 @@ class RiwayatpenyakitController extends Controller
     }
 }
 ?>
-
+<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
  <script>
      function tes_(a){
          if (a>0 && a<100){
         //  alert(a);
             location.href='index.php?r=riwayatpenyakit%2Fview&id='+a+''
     }
+    
      }
+     $(document).ready(function() {
+         for (let i = 0; i < 100; i++) {
+          $("#" + i).empty().append("<p style='color:blue;text'>UPDATE</p>");
+            }
+   
+    });
+
+   
      </script>

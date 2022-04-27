@@ -18,6 +18,7 @@ use Yii;
  */
 class Datasapi extends \yii\db\ActiveRecord
 {
+    public $file;
     /**
      * {@inheritdoc}
      */
@@ -34,8 +35,10 @@ class Datasapi extends \yii\db\ActiveRecord
         return [
             [['namasapi', 'rassapi', 'jeniskelamin', 'tanggallahir', 'beratbadan', 'lingkarbadan'], 'required'],
             [['tanggallahir', 'date'], 'safe'],
+            // [['file'],'file'],
             [['beratbadan', 'lingkarbadan'], 'integer'],
-            [['namasapi', 'rassapi', 'jeniskelamin'], 'string', 'max' => 255],
+            [['namasapi', 'rassapi', 'jeniskelamin','foto'], 'string', 'max' => 255],
+            
         ];
     }
 

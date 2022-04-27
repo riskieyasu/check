@@ -109,6 +109,30 @@ span{
   transition: 1s;
 }
 
+.flex-container_ {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: transparent;
+  
+  width:700px;
+  margin:auto;
+}
+
+.flex-container_ > div {
+  background-color: white;
+  border-color:black;
+  border-style: solid;
+  margin: 10px;
+  padding: 20px;
+  width:700px;
+  height:140px;
+  font-size: 12px;
+  text-align:center;
+  flex: 0 0 40%;
+  transition: 1s;
+  margin-left:50px;
+}
+
 .gauge {
   width: 100%;
   max-width: 250px;

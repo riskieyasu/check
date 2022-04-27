@@ -57,6 +57,8 @@ class BcsController extends Controller
     }
     private function printTable_($data)
     {   $num = 0;
+        $numa =0;
+        $a='h';
         $content = "<h1  style='text-align:center; margin-top:20px; color:black;'>Data kesehatan sapi anda</h1><div class='flex-container' style='height:70%; overflow-y: scroll;'><br><table class='table' style='margin-bottom:312px;'><tr>
         <th>Tulang Belakang</th>
         <th>Tulang Iga</th>
@@ -65,13 +67,20 @@ class BcsController extends Controller
         <th>Penyusutan Otot</th>
         <th>Fisik Sapi</th>
         <th>View (ID)</th>
+        <th>status</th>
+      
       </tr>";
         foreach ($data as $datum) {
+            $num++;
+            $a++;
             $content .= "<tr>";
             foreach ($datum as $key => $value) {
-                $content .= "<td><a href='#' onclick='tes_($value)'>$value</a></td>";
+               
+                $content .= "<p id=$a$num value='$value'>$value</p>";
+                $content .= "<td><a href='#' id =$value onclick='tes_($value)'>$value</a></td>";
             }
-            $content .= "</tr>";
+            $numa++;
+            $content .= "'<td id='ar$numa' value='$value'>BCS</td></tr>";
         }
         $content .= '</table>';
         return $this->renderContent($content);
@@ -162,6 +171,7 @@ class BcsController extends Controller
     }
 }
 ?>
+<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
  <script>
      function tes_(a){
          if (a>0 && a<100){
@@ -169,4 +179,13 @@ class BcsController extends Controller
             location.href='index.php?r=bcs%2Fview&id='+a+''
     }
      }
+     $(document).ready(function() {
+         for (let i = 0; i < 100; i++) {
+          $("#" + i).empty().append("<p style='color:blue;text'>Lihat</p>");
+            }
+   
+    });
+    var cekkk= $("#ar1").val();
+    console.log(cekkk);
      </script>
+    
