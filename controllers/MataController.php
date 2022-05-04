@@ -1,18 +1,17 @@
 <?php
 
 namespace app\controllers;
-use Yii;
-use app\models\Datasapi;
-use app\models\DatasapiSearch;
+
+use app\models\Mata;
+use app\models\MataSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\helpers\Html;
 use yii\web\UploadedFile;
 /**
- * DatasapiController implements the CRUD actions for Datasapi model.
+ * MataController implements the CRUD actions for Mata model.
  */
-class DatasapiController extends Controller
+class MataController extends Controller
 {
     /**
      * @inheritDoc
@@ -33,64 +32,62 @@ class DatasapiController extends Controller
     }
 
     /**
-     * Lists all Datasapi models.
+     * Lists all Mata models.
      *
      * @return string
      */
-    public function actionIndex()
+    public function actionIndex($id)
     {
-        // $searchModel = new DatasapiSearch();
+        $rows = (new \yii\db\Query())
+        ->select(['id','kondisi','sapi_id','foto'])
+        ->from('mata')
+        ->where(['sapi_id' => $id])
+        ->limit(10)
+        ->all();
+        $searchModel = new MataSearch();
         // $dataProvider = $searchModel->search($this->request->queryParams);
-
+        $data=$rows;
+        return $this->printTable_($data);
         // return $this->render('index', [
         //     'searchModel' => $searchModel,
         //     'dataProvider' => $dataProvider,
         // ]);
-        $rows = (new \yii\db\Query())
-        ->select(['id', 'namasapi'])
-        ->from('datasapi')
-        // ->where(['id' => 1])
-        ->limit(10)
-        ->all();
-        
-        if(Yii::$app->user->isGuest){
-        $searchModel = new DatasapiSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
-
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-           }
-           else{
-            $data=$rows;
-            return $this->printTable($data);
     }
-    }
-
-
-private function printTable($data)
-{   $num = 0;
-    $content = "<h1  style='text-align:center; margin-top:20px; color:black;'>Data kesehatan sapi anda</h1><div class='flex-container' style='height:70%; overflow-y: scroll;'>";
-    foreach ($data as $datum) {
-        $num += 1;
-        $content .= "<div><span><i class='fas fa-cow'  style='color:white;  font-size:82px;'></i></span><br><a href='#' id = '$num' onclick=viewdata(this.id);>";
+    private function printTable_($data){
+        $num = 0;
+        $numa =0;
+        $a='z';
+        $content = "<h1 id='cek' style='text-align:center; margin-top:20px; color:black;'>Data kesehatan sapi anda (Kepala -> Mata)</h1><div class='flex-container' style='height:70%; overflow-y: scroll;'><table class='table' style='margin:auto;width:850px;'><tr>
+        <th style='text-align:center;'>ID</th>
+        <th style='text-align:center'>Kondisi</th>
+        <th style='display:none'>Sapi ID</th>
+        <th style='text-align:center'>Foto</th>
+      
+      </tr>";
+      foreach ($data as $datum) {
+        $content .= "<tr>";
+        $num++;
         foreach ($datum as $key => $value) {
-                
-                // echo $detail['value1'] . " " . $detail['value2'];
-                $content .= " {$value}";
-              
+            if($a=='z' OR $a=='aa' OR $a=='ab' OR $a=='ac'){
+                $a++;
+            }
+            else if($a=='ad'){
+                $a ='aa';
+            }
             
+            $content .= "<p style='display:none' id=$a$num value='$value'>$value</p>";
+            if($key == 'id' || $key =='kondisi')
+            $content .= "<td style='text-align:center' ><a href='#' id=$value onclick='tes_($value)'>$value</a></td>";
         }
-        $content .= "</a></div>";
+        $numa++;
+        $content .= "<td style='text-align:center' id='ar$numa' value='$value'><img id ='img$numa' src='../web/uploads/aweeee.jpg' alt='test' width='300' height='200'></td></tr>";
+        $content .= "</tr>";
     }
-    $content .= '</div>';
-    return $this->renderContent($content);
-}
-
-
+    $content .= '</table>';
+        return $this->renderContent($content);
+    }
     /**
-     * Displays a single Datasapi model.
+     * Displays a single Mata model.
      * @param int $id ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
@@ -103,22 +100,24 @@ private function printTable($data)
     }
 
     /**
-     * Creates a new Datasapi model.
+     * Creates a new Mata model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new Datasapi();
+        $model = new Mata();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post())) {
-                $imageName = $model->namasapi;
+                $imageName_ = $model->sapi_id;
                 $model->file = UploadedFile::getInstance($model,'file');
-                $model->file->saveAs('uploads/' .$imageName.'.'.$model->file->extension);
-                $model->foto= 'uploads/' .$imageName.'.'.$model->file->extension;
+               
+                $model->foto= '' .$model->file->extension;
                 $model->save();
-                return $this->redirect(['view', 'id' => $model->id]);
+                $imageName = $model->id;
+                $model->file->saveAs('uploads/mata'.$imageName_. '-'.$imageName.'.'.$model->file->extension);
+                return $this->redirect(['index', 'id' => $model->sapi_id]);
             }
         } else {
             $model->loadDefaultValues();
@@ -130,7 +129,7 @@ private function printTable($data)
     }
 
     /**
-     * Updates an existing Datasapi model.
+     * Updates an existing Mata model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $id ID
      * @return string|\yii\web\Response
@@ -138,16 +137,9 @@ private function printTable($data)
      */
     public function actionUpdate($id)
     {
-
-        Yii::$app->db->createCommand()
-        ->update('datasapi', ['date' => new \yii\db\Expression('NOW()'),], ['id' => $id])
-             ->execute();
-
-
         $model = $this->findModel($id);
-       
+
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -157,7 +149,7 @@ private function printTable($data)
     }
 
     /**
-     * Deletes an existing Datasapi model.
+     * Deletes an existing Mata model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $id ID
      * @return \yii\web\Response
@@ -171,30 +163,28 @@ private function printTable($data)
     }
 
     /**
-     * Finds the Datasapi model based on its primary key value.
+     * Finds the Mata model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $id ID
-     * @return Datasapi the loaded model
+     * @return Mata the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Datasapi::findOne(['id' => $id])) !== null) {
+        if (($model = Mata::findOne(['id' => $id])) !== null) {
             return $model;
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
-}
-?>
+}?>
+<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 <script>
-    function viewdata(id){
-        
-        let text = document.getElementById(id).text;
-        let result = parseInt(text.slice(0, 3));
-        window.location.href= "index.php?r=datasapi%2Fview&id="+result+""
-       
-    }
+      $(document).ready(function() {
 
-   
-</script>
+        // $("#img" +1).attr("src", "../web/uploads/hidung"+$("#ac" +1).text()+'-'+$("#aa" +1).text()+".jpg");
+        for (let i = 1; i < 100; i++) {
+            $("#img" +i).attr("src", "../web/uploads/mata"+$("#ac" +i).text()+'-'+$("#aa" +i).text()+"."+$("#ad" +i).text() +"");
+        }
+});
+    </script>

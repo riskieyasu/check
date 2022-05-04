@@ -87,7 +87,7 @@ $this->params['breadcrumbs'][] = $this->title;
  
    <?= $form->field($model, 'beratbadan')->textInput() ?>
    <?= $form->field($model, 'lingkarbadan')->textInput() ?>
-   
+   <?= $form->field($model,'file')->fileInput(); ?>
  
   
  

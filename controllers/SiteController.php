@@ -104,7 +104,14 @@ class SiteController extends Controller
     {
         return $this->render('catat');
     }
-
+    public function actionVisual()
+    {
+        return $this->render('visual');
+    }
+    public function actionVisualview()
+    {
+        return $this->render('visualview');
+    }
     /**
      * Displays about page.
      *

@@ -35,7 +35,7 @@ class Datasapi extends \yii\db\ActiveRecord
         return [
             [['namasapi', 'rassapi', 'jeniskelamin', 'tanggallahir', 'beratbadan', 'lingkarbadan'], 'required'],
             [['tanggallahir', 'date'], 'safe'],
-            // [['file'],'file'],
+            [['file'],'file'],
             [['beratbadan', 'lingkarbadan'], 'integer'],
             [['namasapi', 'rassapi', 'jeniskelamin','foto'], 'string', 'max' => 255],
             
@@ -56,6 +56,7 @@ class Datasapi extends \yii\db\ActiveRecord
             'beratbadan' => 'Beratbadan',
             'lingkarbadan' => 'Lingkarbadan',
             'date' => 'Date',
+            'file' => 'Foto',
         ];
     }
 }

@@ -90,7 +90,7 @@ span{
   margin-top:90px;
   height:160px;
   width:800px;
-  margin-bottom:-100px;
+  margin-bottom:-70px;
   margin-left:10px;
 
 }
