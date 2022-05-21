@@ -83,7 +83,7 @@ JS;
     
     document.getElementById("guest").style.display="none";
     document.getElementById("login").style.display="none";
-  
+    $(".sapianda").css("display","block");
     $(".artikel").css("display","block");
     // $("#jantan_").text('none');
     

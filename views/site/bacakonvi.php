@@ -36,7 +36,7 @@ $rows=$query->select(['id','judul','isi','foto']) //specify required columns in 
      else if(Yii::$app->user->identity->username=='Admin'){
     
         $script = <<< JS
-        $(".sapianda").css("display","none");
+        $(".sapianda").css("display","block");
         $(".artikel").css("display","block");
     JS;
         $this->registerJs($script);

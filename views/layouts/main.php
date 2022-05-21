@@ -268,8 +268,8 @@ width:350px;
                             [
                                 "items" => [
                                     ["label" => "Home", "url" => "index", "icon" => "home"],
-                                    // ["label" => "Sapi Anda", "url" => ["/datasapi/index_"],"options"=>['class'=>'sapianda_','style'=>'display:none'], "icon" => "list-alt"],
-                                    ["label" => "Sapi Anda", "url" => ["/datasapi/index"],"options"=>['class'=>'sapianda','style'=>'display:block'], "icon" => "list-alt"],
+                                  
+                                    ["label" => "Sapi Anda", "url" => ["/datasapi/index"],"options"=>['class'=>'sapianda','style'=>'display:none'], "icon" => "list-alt"],
                                     ["label" => "Post Artikel", "url" => ["/article/index"],"options"=>['class'=>'artikel','style'=>'display:none'], "icon" => "list-alt"],
                                    
                 
