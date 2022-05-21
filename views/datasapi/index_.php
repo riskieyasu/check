@@ -73,7 +73,7 @@ JS;
         
         document.getElementById("h2").style.display="none";
         $(".artikel").css("display","block");
-    
+        $(".sapianda").css("display","block");
         
     JS;
         $this->registerJs($script);

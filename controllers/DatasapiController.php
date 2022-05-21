@@ -48,28 +48,14 @@ class DatasapiController extends Controller
         //     'dataProvider' => $dataProvider,
         // ]);
         if($id!=5){
-        $rows = (new \yii\db\Query())
-        ->select(['id', 'namasapi'])
-        ->from('datasapi')
-        ->where(['id_user' => $id])
-        ->limit(50)
-        ->all();
-        
-        if(Yii::$app->user->isGuest){
-        $searchModel = new DatasapiSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
+  
+    $searchModel = new DatasapiSearch();
+    $dataProvider = $searchModel->search($this->request->queryParams);
 
-        return $this->render('index_', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-           }
-   
-           else{
-    
-            $data=$rows;
-            return $this->printTable($data);
-    }
+    return $this->render('index', [
+        'searchModel' => $searchModel,
+        'dataProvider' => $dataProvider,
+    ]);
         }
         else{
             $searchModel = new DatasapiSearch();
